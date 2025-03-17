@@ -25,3 +25,11 @@ Again, after refactoring bits of code in `main.rs`, now everytime our http statu
 In the updated function, the status_line variable will go through an if check, if the request line is `"GET / HTTP/1.1"`, it serves the `hello.html` page with a 200 OK status. 
 
 Otherwise, it serves the `404.html` page with a 404 Not Found status. The function reads the appropriate HTML file, determines its length, and constructs the HTTP response. Finally, the response is sent to the client.
+
+## Commit 4 Reflection
+Another update to our good friend `main.rs`, this time we added some code to simulate a slow request.
+When a request is made to `"127.0.0.1/sleep"`, the thread sleeps for 10 seconds, mimicking a delay. The code now also uses a `match` statement to determine the status_line and filename based on the request line. 
+If the request is `"GET / HTTP/1.1"`, it serves `hello.html` with a 200 OK status. 
+If the request is `"GET /sleep HTTP/1.1"`, it also serves `hello.html` with a 200 OK status after a **10-second delay**. 
+Otherwise, it serves `404.html` with a 404 Not Found status. 
+Since my server is single-threaded, it causes the server to become **unresponsive** to other requests during the 10 second sleep period.
