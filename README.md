@@ -33,3 +33,7 @@ If the request is `"GET / HTTP/1.1"`, it serves `hello.html` with a 200 OK statu
 If the request is `"GET /sleep HTTP/1.1"`, it also serves `hello.html` with a 200 OK status after a **10-second delay**. 
 Otherwise, it serves `404.html` with a 404 Not Found status. 
 Since my server is single-threaded, it causes the server to become **unresponsive** to other requests during the 10 second sleep period.
+
+## Commit 5 Reflection
+Once again, our friendly neighborhood `main.rs` gets another touch-up. This time we got him a friend, `lib.rs`, it is basically defining a ThreadPool struct for handling concurrent tasks.
+The server is now multi-threaded, using ThreadPool as a way to handle multiple requests at the same time. The thread pool helps prevent the server from being overwhelmed by the number of requests by limiting the number of threads that can be created. The server can now handle multiple requests at the same time, now the server doesn't halt anytime the sleep endpoint is requested and the latency problem is solved. 
