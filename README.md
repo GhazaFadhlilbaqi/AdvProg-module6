@@ -37,3 +37,8 @@ Since my server is single-threaded, it causes the server to become **unresponsiv
 ## Commit 5 Reflection
 Once again, our friendly neighborhood `main.rs` gets another touch-up. This time we got him a friend, `lib.rs`, it is basically defining a ThreadPool struct for handling concurrent tasks.
 The server is now multi-threaded, using ThreadPool as a way to handle multiple requests at the same time. The thread pool helps prevent the server from being overwhelmed by the number of requests by limiting the number of threads that can be created. The server can now handle multiple requests at the same time, now the server doesn't halt anytime the sleep endpoint is requested and the latency problem is solved. 
+
+## Bonus Commit Reflection
+`main.rs` as well as `lib.rs` gets one final makeover, this time it's to enhance it's error handling. 
+I replaced the simple `new()` method with a `build()` method that returns a proper `Result<ThreadPool, PoolCreationError>` instead of panicking on invalid inputs. I created a custom `PoolCreationError` type with helpful error messages to make debugging easier. The `build()` function now elegantly validates the thread count before creating a `ThreadPool`, returning an error for invalid sizes. In main.rs, 
+I updated the code to use this new `build()` method with `unwrap()`, to better handle errors.
